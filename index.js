@@ -453,7 +453,7 @@ message.channel.send(prefEMbed)
       .addField("Помощь Модератора ", `${prefix}mm`)
       .addField("Bot Info:", `${prefix}botinfo`)
       .addField("Afk : ", `${prefix}afk`)
-      .addField(`Support` -", `!s`)
+      .addField(`Support` -, `!s`)
       message.channel.send(embedH)
     }
     if(cmd === `!s`){
