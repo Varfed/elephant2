@@ -388,7 +388,7 @@ message.channel.send(prefEMbed)
 
      if(cmd === `${prefix}unmute`){
       let user = message.mentions.users.first();
-   
+           if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Нет!")
       let iMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
       if(!iMember) return message.reply("Надо тегнуть пользователя");
   
