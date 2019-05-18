@@ -452,7 +452,7 @@ message.channel.send(prefEMbed)
       .addField("Color hex", `${prefix}hex`)
       .addField("Помощь Модератора ", `${prefix}mm`)
       .addField("Bot Info:", `${prefix}botinfo`)
-      .addField("Afk : ", `${prefix}afk)
+      .addField("Afk : ", `${prefix}afk`)
       .addField(`Support` -", `!s`)
       message.channel.send(embedH)
     }
