@@ -275,14 +275,14 @@ message.channel.send(prefEMbed)
      
         .addField("Mute - Работает", `${prefix}mute <@user> <reason>`)
         .addField("Unmute - Работает", `${prefix}unmute <@user>`)
-        .addField("Server id - Работает ", `${prefix}serverid`)
+
         .addField("Report - Работает", `${prefix}report`)
         .addField("User id - Работает", `${prefix}userid <@user>`)
         .addField("Warn - Работает", `${prefix}warn <@user> <Reason>`)
         .addField("Kick - Работает", `${prefix}kick`)
         .addField("Ban - Работает", `${prefix}ban <@user>`)
         .addField("Clear - Работает", `${prefix}clear `)
-        
+        .addField("User id", `${prefix}userid`)
         .addField("        ` Автор`: Famas_4sh", `Пусто`);
     
         return message.channel.send(helpEmbed);
