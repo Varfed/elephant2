@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const strftime = require('strftime')
 const ms = require("ms")
 const fs = require("fs")
-const token = "NTc3ODc0NDkyOTMyNDg5MjE2.XOAYzQ.yblY-3wq1rYW02SRq2wXA5nDCzo"
+const token = process.env.token;
 
   let boolebot = true;
   let boolewarn = true;   
