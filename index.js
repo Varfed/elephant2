@@ -353,7 +353,7 @@ message.channel.send(prefEMbed)
           })
           message.guild.channels.forEach(async (channel, id) => {
             await channel.overwritePermissions(muteRole, {
-              READ_MESSAGES: false,
+             
               SEND_MESSAGES: false,
               ADD_REACTIONS: false
             });
