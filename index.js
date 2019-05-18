@@ -341,6 +341,7 @@ message.channel.send(prefEMbed)
      if(cmd === `${prefix}mute`){
       let reason = args.slice(1).join(' ');
       let user = message.mentions.users.first();
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Нет!")
       let modlog = bot.channels.find('name', 'logs');
       let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'el-muted');
       if (!modlog) return message.reply('Я не нашел канал logs').catch(console.error);
