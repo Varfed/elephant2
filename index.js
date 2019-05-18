@@ -466,7 +466,7 @@ message.channel.send(prefEMbed)
       .setColor('RANDOM')
       .addField("Имя", bot.user.username)
       .addField("Создан:", bot.user.createdAt)
-      .addField("Версия:", botconfig.version)
+      .addField("Версия:", "1.0")
       .addField("Автор: ","Команда +2")
       .setDescription("Поддержка: https://discord.gg/5GTNU7h ")
       .setTimestamp();
