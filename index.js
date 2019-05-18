@@ -282,6 +282,7 @@ message.channel.send(prefEMbed)
         .addField("Kick - Работает", `${prefix}kick`)
         .addField("Ban - Работает", `${prefix}ban <@user>`)
         .addField("Clear - Работает", `${prefix}clear `)
+        
         .addField("        ` Автор`: Famas_4sh", `Пусто`);
     
         return message.channel.send(helpEmbed);
@@ -450,7 +451,8 @@ message.channel.send(prefEMbed)
       .addField(`8ball или 8b`, `${prefix}8b`)
       .addField("Color hex", `${prefix}hex`)
       .addField("Помощь Модератора ", `${prefix}mm`)
-      .addField("Bot Info:", )
+      .addField("Bot Info:", `${prefix}botinfo`)
+      .addField("Afk : ", `${prefix}afk`
       .addField("`Support` - Работает", `!s`)
       message.channel.send(embedH)
     }
