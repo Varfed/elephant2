@@ -556,7 +556,7 @@ let embeds = new Discord.RichEmbed()
         questionch.send(embeds)
     }
     if(cmd === `${prefix}ban`){
- if (!message.guild.member(bot.user).hasPermission('BAN_MEMBERS)) return message.reply('У меня нет прав на это.').catch(console.error);
+ if (!message.guild.member(bot.user).hasPermission('BAN_MEMBERS')) return message.reply('У меня нет прав на это.').catch(console.error);
    
 
       let reason = args.slice(1).join(' ')
