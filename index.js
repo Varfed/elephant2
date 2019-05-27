@@ -124,7 +124,9 @@ let prefix = prefixes[message.guild.id].prefixes;
     if(cmd === `${prefix}sauthor`){
       let reason = args.join(" ").slice(0);
       if(!reason) return message.reply("Вы не написали вопрос")
-      let modlog = bot.channels.find('name', 'devquest');
+      let modlog = bot.channel
+      
+      .find('name', 'devquest');
 
       let embed = new Discord.RichEmbed()
       .setColor("#fff")
@@ -356,11 +358,11 @@ message.channel.send(prefEMbed)
             .setThumbnail(message.guild.iconURL)
         message.channel.send({embed});
      }
-     if(cmd === `${prefix}mute`){
+    if(cmd === `${prefix}mute`){
+      if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply("Нет")
       let reason = args.slice(1).join(' ');
       let user = message.mentions.users.first();
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Нет!")
-      let modlog = bot.channels.find('name', 'logs');
+      let modlog = bot.channel.find('name', 'logs');
       let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'el-muted');
       if (!modlog) return message.reply('Я не нашел канал logs').catch(console.error);
       if(!muteRole){
@@ -372,7 +374,7 @@ message.channel.send(prefEMbed)
           })
           message.guild.channels.forEach(async (channel, id) => {
             await channel.overwritePermissions(muteRole, {
-             
+           
               SEND_MESSAGES: false,
               ADD_REACTIONS: false
             });
@@ -394,17 +396,26 @@ message.channel.send(prefEMbed)
     
      
         message.guild.member(user).addRole(muteRole)
-          bot.channels.get(modlog.id).sendEmbed(embed).catch(console.error);
-    
-    
+          bot.channel.get(modlog.id).sendEmbed(embed).catch(console.error);
+      const muteEmb = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .addField("Вы получили мут", "*Заглушку*")
+      .addField("Модератор:", message.author.username)
+        .addField("На сервере", message.guild)
+      .addField("По причине:", reason)
+    message.user.send(muteEmb)
       message.channel.send(`***Пользователь ${user.username} был заглушен по причине : ${reason}***`)
      }
+      
+      
+   
      if(cmd === `${prefix}ping`){
       const msg = await message.channel.send("Ping?");
       msg.edit(`Pong! Latency is "${msg.createdTimestamp - message.createdTimestamp}ms". API Latency is "${Math.round(bot.ping)}ms"`);
     };
 
      if(cmd === `${prefix}unmute`){
+        if (!message.guild.member(bot.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('У меня нет прав на это.').catch(console.error);
       let user = message.mentions.users.first();
            if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Нет!")
       let iMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
@@ -545,13 +556,13 @@ let embeds = new Discord.RichEmbed()
         questionch.send(embeds)
     }
     if(cmd === `${prefix}ban`){
-
+ if (!message.guild.member(bot.user).hasPermission('BAN_MEMBERS)) return message.reply('У меня нет прав на это.').catch(console.error);
    
 
       let reason = args.slice(1).join(' ')
       let user = message.mentions.users.first();
      
-      if(!message.member.hasPermission("BAN_MEMBERS")) return errors.noPerms(message, "BAN_MEMBERS");
+
   
       if(reason.length < 1) return message.reply("Укажите причину для бана!");
       if(message.mentions.users.size < 1) return message.reply('Вы должны упомянуть кого-то').catch(console.error);
@@ -571,6 +582,13 @@ let embeds = new Discord.RichEmbed()
       .addField("Модератор", `${message.author.username}#${message.author.discriminator}`)
       .addField("ID:", `${user.id}` );
   
+      const muteEmb = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .addField("Вы получили бан", "*Заглушку*")
+      .addField("Модератор:", message.author.username)
+      .addField("На сервере", message.guild)
+      .addField("По причине:", reason)
+    message.user.send(muteEmb)
       message.channel.send(`Пользователь ${user.username} забанен <:BanHammer:498911349061976074>`)
     user.send(`Вас забанили на сервере ${message.guild.name}, причина: ${reason}`)
       return incidentchannel.send(banw);
@@ -584,7 +602,7 @@ let embeds = new Discord.RichEmbed()
       
       let user = message.mentions.users.first();
     
-      if(!message.member.hasPermission("KICK_MEMBERS")) return errors.noPerms(message, "KICK_MEMBERS");
+      if(!message.member.hasPermission("KICK_MEMBERS")) return message.reply("У Вас нет прав!")
       
       let incidentchannel = message.guild.channels.find(`name`, "logs");
       if(!incidentchannel) return message.channel.send("Не найден logs канал.");
@@ -598,14 +616,13 @@ let embeds = new Discord.RichEmbed()
         .setColor(0x00AE86)
         .setTimestamp()
         .addField('Action:', 'Кик')
-        .addField('Пользователь', `${user.username}#${user.discriminator} (${user.id})`)
+        
         .addField('Модератор:', `${message.author.username}#${message.author.discriminator}`)
         .addField('Причина', reason);
   
-        user.send(`Вас кикнули с ${message.guild.name}, причина : ${reason}`)
         const msg = await message.channel.send("Kick function");
         msg.edit(`***Я изгнал пользователя! Id: ${user.id}***`);
-   
+    user.send(embed)
       return bot.channels.get(incidentchannel.id).sendEmbed(embed);
       
     };
