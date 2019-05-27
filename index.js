@@ -150,6 +150,9 @@ let prefix = prefixes[message.guild.id].prefixes;
       message.reply("Бот включен")
       
     }
+    if(cmd === `test`){
+     message.reply("test on") 
+    }
     if(boolebot){
      if(cmd === `${prefix}userinfo`){
         let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
