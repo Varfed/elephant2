@@ -280,7 +280,7 @@ message.channel.send(prefEMbed)
           .setTimestamp()
           .addField("Причина:", reason);
     
-          let reportschannel = message.guild.channels.find(`name`, "reports");
+          let reportschannel = message.guild.channel.find(`name`, "reports");
           if(!reportschannel) return message.channel.send("Не найден канал для репортов.");
     
           reportschannel.send(reportEmbed);
@@ -362,7 +362,7 @@ message.channel.send(prefEMbed)
       if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply("Нет")
       let reason = args.slice(1).join(' ');
       let user = message.mentions.users.first();
-      let modlog = bot.channel.find('name', 'logs');
+      let modlog = bot.guild.channel.find('name', 'logs');
       let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'el-muted');
       if (!modlog) return message.reply('Я не нашел канал logs').catch(console.error);
       if(!muteRole){
@@ -372,7 +372,7 @@ message.channel.send(prefEMbed)
             color: "#000000",
             permissions:[]
           })
-          message.guild.channels.forEach(async (channel, id) => {
+          message.guild.channel.forEach(async (channel, id) => {
             await channel.overwritePermissions(muteRole, {
            
               SEND_MESSAGES: false,
@@ -403,7 +403,7 @@ message.channel.send(prefEMbed)
       .addField("Модератор:", message.author.username)
         .addField("На сервере", message.guild)
       .addField("По причине:", reason)
-    message.user.send(muteEmb)
+user.send(muteEmb)
       message.channel.send(`***Пользователь ${user.username} был заглушен по причине : ${reason}***`)
      }
       
@@ -421,7 +421,7 @@ message.channel.send(prefEMbed)
       let iMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
       if(!iMember) return message.reply("Надо тегнуть пользователя");
   
-      let incidentchannel = message.guild.channels.find(`name`, "logs");
+      let incidentchannel = message.guild.channel.find(`name`, "logs");
       if(!incidentchannel) return message.channel.send("Не найден канал logs.");
   
     ///let muteRole = bot.guilds.get(message.guild.id).roles.find('name', 'muted');
@@ -434,7 +434,7 @@ message.channel.send(prefEMbed)
           color: "#000000",
           permissions:[]
         })
-        message.guild.channels.forEach(async (channel, id) => {
+        message.guild.channel.forEach(async (channel, id) => {
           await channel.overwritePermissions(muterole, {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false
@@ -522,7 +522,7 @@ message.channel.send(prefEMbed)
   
       if(!user) return message.reply('Укажите id пользователя!').catch(console.error);
       message.guild.unban(user);
-      let incidentchannel = message.guild.channels.find(`name`, "logs");
+      let incidentchannel = message.guild.channel.find(`name`, "logs");
       if(!incidentchannel) return message.channel.send("Не найден logs канал");
   
   
@@ -541,7 +541,7 @@ message.channel.send(prefEMbed)
     if(cmd ===`${prefix}mm`){
       let user = message.author.username;
       let reason = args.join(" ").slice(0);
-      let questionch = message.guild.channels.find(`name`, "reports");
+      let questionch = message.guild.channel.find(`name`, "reports");
       if(!questionch) return message.reply("Сейчас эта функция не доступна")
 
 
@@ -566,7 +566,7 @@ let embeds = new Discord.RichEmbed()
   
       if(reason.length < 1) return message.reply("Укажите причину для бана!");
       if(message.mentions.users.size < 1) return message.reply('Вы должны упомянуть кого-то').catch(console.error);
-      let incidentchannel = message.guild.channels.find(`name`, "logs");
+      let incidentchannel = message.guild.channel.find(`name`, "logs");
       if(!incidentchannel) return message.channel.send("Не найден logs канал.");
   
   
@@ -604,7 +604,7 @@ let embeds = new Discord.RichEmbed()
     
       if(!message.member.hasPermission("KICK_MEMBERS")) return message.reply("У Вас нет прав!")
       
-      let incidentchannel = message.guild.channels.find(`name`, "logs");
+      let incidentchannel = message.guild.channel.find(`name`, "logs");
       if(!incidentchannel) return message.channel.send("Не найден logs канал.");
       if (reason.length < 1) return message.reply('Укажите причину.');
       if (message.mentions.users.size < 1) return message.reply('Вы должны упомянуть кого-то').catch(console.error);
@@ -623,7 +623,7 @@ let embeds = new Discord.RichEmbed()
         const msg = await message.channel.send("Kick function");
         msg.edit(`***Я изгнал пользователя! Id: ${user.id}***`);
     user.send(embed)
-      return bot.channels.get(incidentchannel.id).sendEmbed(embed);
+      return bot.channel.get(incidentchannel.id).sendEmbed(embed);
       
     };
     if(cmd === `${prefix}lockdown`){
